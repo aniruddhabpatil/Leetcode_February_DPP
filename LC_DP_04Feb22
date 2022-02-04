@@ -1,0 +1,59 @@
+// 525. Contiguous Array
+// https://leetcode.com/problems/contiguous-array/
+
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) 
+    {
+        
+        int i,j,sum=0,ans=0,n=nums.size();
+        
+        if(n<2)
+            return 0;
+        map<int,int> mp;
+        
+        for(i=0;i<n;i++)
+        {
+            if(nums[i]==0)
+            {
+                sum--;
+                if(sum==0)
+                {
+                    ans=i+1;
+                    continue;
+                }
+                if(mp.find(sum)!=mp.end())
+                {
+                    j=i-mp[sum];
+                    if(j>ans)
+                        ans=j;
+                }
+                else
+                    mp[sum]=i;
+                
+            }
+            if(nums[i]==1)
+            {
+                sum++;
+                if(sum==0)
+                {
+                    ans=i+1;
+                    continue;
+                }
+                if(mp.find(sum)!=mp.end())
+                {
+                    j=i-mp[sum];
+                    if(j>ans)
+                        ans=j;
+                }
+                else
+                    mp[sum]=i;
+                    
+            }
+            //for (auto x = mp.begin(); x != mp.end(); x++)
+              //  cout << x->first << "      " << x->second<<" "<<ans<< endl;
+        }
+        return ans;
+        
+    }
+};
